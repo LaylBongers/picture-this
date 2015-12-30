@@ -1,0 +1,6 @@
+[package]
+name = "drawless"
+version = "0.1.0"
+authors = ["Layl <layl@edgeworksgames.com>"]
+
+[dependencies]

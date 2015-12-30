@@ -1,0 +1,6 @@
+elm-stuff
+node_modules
+tmp
+target
+
+npm-debug.log
