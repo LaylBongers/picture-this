@@ -12,5 +12,5 @@ var CountersApp = require('./CountersApp');
 
 ReactDOM.render(
     <CountersApp />,
-    document.getElementById('content')
+    document.getElementById('app')
 );

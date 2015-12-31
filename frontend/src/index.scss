@@ -1,10 +1,34 @@
 @import '~foundation-sites/scss/foundation';
 @include foundation-everything($flex: true);
 
-$font-stack: Open Sans, sans-serif;
-$primary-color: #333;
-
 body {
-    font: 100% $font-stack;
-    color: $primary-color;
+    font-family: Open Sans, sans-serif;
+    color: #333;
+}
+
+noscript {
+    @include flex-grid-row();
+    @include flex-grid-column();
+
+    h1 {
+        @include callout(#ec5840/*$alert-color*/);
+        width: 100%;
+        color: red;
+        text-align: center;
+    }
+}
+
+.dl-app {
+    .loading-placeholder {
+        @include flex-grid-row();
+        @include flex-grid-column();
+    }
+
+    header {
+        @include flex-grid-row();
+        @include flex-grid-column();
+
+        flex-direction: column;
+        align-items: center;
+    }
 }
