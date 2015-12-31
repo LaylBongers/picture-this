@@ -14,14 +14,15 @@ module.exports = {
     module: {
         loaders: [{
             test: /\.html$/,
-            exclude: [/node_modules/, /target/],
-            loader: 'file?name=[name].[ext]'
+            include: [/src/],
+            loaders: ['file?name=[name].[ext]']
         }, {
             test: /\.scss$/,
+            include: [/src/],
             loaders: ['file?name=[name].css', 'sass']
         }, {
             test: /\.jsx$/,
-            exclude: [/node_modules/, /target/],
+            include: [/src/],
             loader: 'babel',
             query: {
                 plugins: ['transform-runtime'],
