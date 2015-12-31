@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.jsx',
 
     output: {
         path: './target',
@@ -8,20 +8,22 @@ module.exports = {
 
     resolve: {
         modulesDirectories: ['node_modules'],
-        extensions: ['', '.js', '.elm']
+        extensions: ['', '.js', '.jsx', '.elm']
     },
 
     module: {
         loaders: [{
-            test: /\.html$/,
+            test: /\.html?$/,
             exclude: [/node_modules/],
             loader: 'file?name=[name].[ext]'
         }, {
-            test: /\.elm$/,
-            exclude: [/elm-stuff/, /node_modules/],
-            loader: 'elm-webpack'
-        }],
-
-        noParse: [/.elm$/]
+            test: /\.jsx?$/,
+            exclude: [/node_modules/, /bower_components/],
+            loader: 'babel',
+            query: {
+                presets: ['react', 'es2015'],
+                cacheDirectory: true
+            }
+        }]
     }
 };
