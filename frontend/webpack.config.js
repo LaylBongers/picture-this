@@ -8,16 +8,19 @@ module.exports = {
 
     resolve: {
         modulesDirectories: ['node_modules'],
-        extensions: ['', '.js', '.jsx', '.elm']
+        extensions: ['', '.js', '.jsx']
     },
 
     module: {
         loaders: [{
-            test: /\.html?$/,
+            test: /\.html$/,
             exclude: [/node_modules/, /target/],
             loader: 'file?name=[name].[ext]'
         }, {
-            test: /\.jsx?$/,
+            test: /\.scss$/,
+            loaders: ['style', 'css', 'sass']
+        }, {
+            test: /\.jsx$/,
             exclude: [/node_modules/, /target/],
             loader: 'babel',
             query: {

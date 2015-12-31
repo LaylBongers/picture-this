@@ -2,6 +2,7 @@
 
 // Static resources
 require('./index.html');
+require('./index.scss');
 
 // Bootstrap the site
 var React = require('react');
