@@ -3,10 +3,16 @@ var React = require('react');
 class CountersApp extends React.Component {
     render = () => {
         return (
-            <header >
-                <h1>Hello React</h1>
-                <h2 className="subheader">Such a Simple Blog Layout</h2>
-            </header>
+            <div>
+                <header>
+                    <h1><img src="logo.png"/></h1>
+                    <h2 className="subheader">Yet another way to make your friends hate you!</h2>
+                </header>
+                <div className="row">
+                    <div className="medium-6 small-12 column">Left</div>
+                    <div className="medium-6 small-12 column">Right</div>
+                </div>
+            </div>
         );
     }
 }

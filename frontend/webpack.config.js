@@ -13,7 +13,7 @@ module.exports = {
 
     module: {
         loaders: [{
-            test: /\.html$/,
+            test: /\.(html|png)$/,
             include: [/src/],
             loaders: ['file?name=[name].[ext]']
         }, {

@@ -3,6 +3,7 @@
 // Static resources
 require('./index.html');
 require('./index.scss');
+require('./logo.png');
 require('file?name=foundation.js!foundation-sites/dist/foundation.js');
 
 // Bootstrap the site
