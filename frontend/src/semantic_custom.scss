@@ -1,0 +1,25 @@
+@import '../semantic/dist/semantic.css';
+
+body {
+    color: #333;
+}
+
+body, h1, h2, h3, h4, h5 {
+    font-family: Open Sans, sans-serif;
+}
+
+.dl-app {
+    header {
+        @extend .ui, .text, .container;
+
+        padding-top: 20px;
+        text-align: center;
+        color: #888;
+
+        h1 { line-height: 0; }
+        h1, h2 {
+            margin: 0;
+            font-weight: normal;
+        }
+    }
+}

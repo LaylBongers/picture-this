@@ -2,9 +2,9 @@
 
 // Static resources
 require('./index.html');
-require('./index.scss');
+require('./semantic_custom.scss');
 require('./logo.png');
-require('file?name=foundation.js!foundation-sites/dist/foundation.js');
+require('file?name=semantic.js!../semantic/dist/semantic.js');
 
 // Bootstrap the site
 var React = require('react');
