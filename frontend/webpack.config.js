@@ -18,7 +18,7 @@ module.exports = {
             loader: 'file?name=[name].[ext]'
         }, {
             test: /\.scss$/,
-            loaders: ['style', 'css', 'sass']
+            loaders: ['file?name=[name].css', 'sass']
         }, {
             test: /\.jsx$/,
             exclude: [/node_modules/, /target/],
