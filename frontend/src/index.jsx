@@ -6,9 +6,9 @@ require('./index.html');
 // Bootstrap the site
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Hello = require('./Hello');
+var CountersApp = require('./CountersApp');
 
 ReactDOM.render(
-    <Hello />,
+    <CountersApp />,
     document.getElementById('content')
 );

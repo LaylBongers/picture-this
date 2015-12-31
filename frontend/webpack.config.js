@@ -14,14 +14,15 @@ module.exports = {
     module: {
         loaders: [{
             test: /\.html?$/,
-            exclude: [/node_modules/],
+            exclude: [/node_modules/, /target/],
             loader: 'file?name=[name].[ext]'
         }, {
             test: /\.jsx?$/,
-            exclude: [/node_modules/, /bower_components/],
+            exclude: [/node_modules/, /target/],
             loader: 'babel',
             query: {
-                presets: ['react', 'es2015'],
+                plugins: ['transform-runtime'],
+                presets: ['react', 'es2015', 'stage-0'],
                 cacheDirectory: true
             }
         }]
