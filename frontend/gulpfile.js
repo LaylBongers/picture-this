@@ -6,7 +6,8 @@ var gulp  = require('gulp'),
     vinylSourceStream = require('vinyl-source-stream'),
     vinylBuffer = require('vinyl-buffer'),
     sass = require('gulp-sass'),
-    install = require("gulp-install");
+    install = require("gulp-install"),
+    changed = require('gulp-changed');
 
 gulp.task('default', function() {
     gutil.log('Gulp is running!');
@@ -16,7 +17,8 @@ gulp.task('default', function() {
 // Setting up
 
 gulp.task('setup', function() {
-    return gulp.src(['./bower.json', './package.json'])
+    return gulp
+        .src(['./bower.json', './package.json'])
         .pipe(install());
 });
 
@@ -28,16 +30,19 @@ gulp.task('build', ['copy-dependencies', 'copy-html', 'transpile-jsx', 'build-sc
 });
 
 gulp.task('copy-dependencies', function() {
-    return gulp.src([
+    return gulp
+        .src([
             'bower_components/jquery/dist/jquery.js',
             'bower_components/tether/dist/js/tether.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
         ])
+        .pipe(changed('target/js'))
         .pipe(gulp.dest('target/js'));
 });
 
 gulp.task('copy-html', function() {
-    return gulp.src('src/*.html')
+    return gulp
+        .src('src/*.html')
         .pipe(gulp.dest('target'));
 });
 
@@ -51,7 +56,9 @@ gulp.task('transpile-jsx', function() {
 });
 
 gulp.task('build-scss', function() {
-    return gulp.src('src/scss/index.scss')
+    return gulp
+        .src('src/scss/index.scss')
+        .pipe(changed('target/css'))
         .pipe(sass())
         .pipe(gulp.dest('target/css'));
 });

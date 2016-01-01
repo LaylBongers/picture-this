@@ -92,5 +92,11 @@ $enable-flex: true;
             text-align: center;
             margin-bottom: 2px;
         }
+
+        .create-game-button {
+            @extend .btn, .btn-primary;
+
+            width: 100%;
+        }
     }
 }

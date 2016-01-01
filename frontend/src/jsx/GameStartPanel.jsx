@@ -38,7 +38,7 @@ export class GameStartPanel extends React.Component {
                                 </div>
                             </div>
                             <div className="divider">- or -</div>
-                            <button type="submit" className="btn btn-primary" style={{width: '100%'}}>Create Game</button>
+                            <button className="create-game-button" type="submit">Create Game</button>
                         </section>
                         <article>
                             <h3>Donate</h3>
