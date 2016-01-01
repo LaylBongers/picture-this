@@ -1,0 +1,22 @@
+{
+  "name": "drawless-frontend",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Layl <layl@edgeworksgames.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.2"
+  }
+}

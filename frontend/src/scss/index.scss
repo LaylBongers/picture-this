@@ -1,0 +1,35 @@
+@import '../../bower_components/bootstrap/scss/bootstrap.scss';
+@import url(https://fonts.googleapis.com/css?family=Calligraffitti|Open+Sans);
+
+html {
+    font-size: 14px;
+}
+
+body {
+    background-color: #333;
+    color: #E0E0E0;
+}
+
+body, h1, h2, h3, h4, h5 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.dl-app {
+    @extend .container;
+
+    header {
+        text-align: center;
+        padding-top: 20px;
+
+        h1 {
+            margin: 0;
+            font-family: 'Calligraffitti', cursive;
+            font-size: 72px;
+            color: #FF931E;
+        }
+        h2 {
+            margin: 0;
+            font-size: 1.714rem;
+        }
+    }
+}

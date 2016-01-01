@@ -1,6 +1,3 @@
-elm-stuff
-node_modules
-tmp
-target
-
-npm-debug.log
+/node_modules/
+/bower_components/
+/target/
