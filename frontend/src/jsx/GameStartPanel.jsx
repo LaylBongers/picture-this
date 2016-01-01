@@ -29,18 +29,16 @@ export class GameStartPanel extends React.Component {
                         </article>
                     </div>
                     <div className="content-sidebar">
-                        <section>
-                            <div className="jumbotron" style={{padding: '18px', backgroundColor: '#FFF'}}>
-                                <h3 style={{marginBottom: '14px'}}>Play Drawless</h3>
-                                <div className="form-inline">
-                                    <div className="input-group" style={{width: '100%'}}>
-                                        <input className="form-control" type="text" id="game-code" placeholder="Game Code" style={{width: 'calc(100% - 100px)', borderRadius: '0.25rem 0 0 0.25rem', display: 'inline-block', minWidth: '0px'}} />
-                                        <button type="submit" className="btn btn-primary" style={{width: '100px', borderRadius: '0 0.25rem 0.25rem 0', display: 'inline-block'}}>Join Game</button>
-                                    </div>
+                        <section className="play-form">
+                            <h3>Play Drawless</h3>
+                            <div className="form-inline">
+                                <div className="join-game-inline">
+                                    <input className="join-game-code" type="text" id="game-code" placeholder="Game Code" />
+                                    <button className="join-game-button" type="submit">Join Game</button>
                                 </div>
-                                <div style={{textAlign: 'center', color: '#666'}}>- or -</div>
-                                <button type="submit" className="btn btn-primary" style={{width: '100%'}}>Create Game</button>
                             </div>
+                            <div className="divider">- or -</div>
+                            <button type="submit" className="btn btn-primary" style={{width: '100%'}}>Create Game</button>
                         </section>
                         <article>
                             <h3>Donate</h3>

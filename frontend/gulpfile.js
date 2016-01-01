@@ -16,7 +16,7 @@ gulp.task('default', function() {
 // Setting up
 
 gulp.task('setup', function() {
-    gulp.src(['./bower.json', './package.json'])
+    return gulp.src(['./bower.json', './package.json'])
         .pipe(install());
 });
 
@@ -24,11 +24,11 @@ gulp.task('setup', function() {
 // Building
 
 gulp.task('build', ['copy-dependencies', 'copy-html', 'transpile-jsx', 'build-scss'], function() {
-    gutil.log('build is running!');
+    gutil.log('Build is running!');
 });
 
 gulp.task('copy-dependencies', function() {
-    gulp.src([
+    return gulp.src([
             'bower_components/jquery/dist/jquery.js',
             'bower_components/tether/dist/js/tether.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
@@ -37,12 +37,12 @@ gulp.task('copy-dependencies', function() {
 });
 
 gulp.task('copy-html', function() {
-    gulp.src('src/*.html')
+    return gulp.src('src/*.html')
         .pipe(gulp.dest('target'));
 });
 
 gulp.task('transpile-jsx', function() {
-    browserify('src/jsx/index.jsx')
+    return browserify('src/jsx/index.jsx')
         .transform('babelify', {presets: ['es2015', 'react', 'stage-0']})
         .bundle()
         .pipe(vinylSourceStream('index.js'))
@@ -51,7 +51,7 @@ gulp.task('transpile-jsx', function() {
 });
 
 gulp.task('build-scss', function() {
-    gulp.src('src/scss/index.scss')
+    return gulp.src('src/scss/index.scss')
         .pipe(sass())
         .pipe(gulp.dest('target/css'));
 });
