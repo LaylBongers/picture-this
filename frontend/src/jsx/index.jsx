@@ -1,6 +1,10 @@
+import {DrawlessApp} from './DrawlessApp.jsx';
+
 var React = require('react');
 var ReactDOM = require('react-dom');
-var DrawlessApp = require('./DrawlessApp.jsx');
+
+//var addons = require('react-addons');
+//var ReactCSSTransitionGroup = addons.ReactCSSTransitionGroup;
 
 ReactDOM.render(
     <DrawlessApp />,

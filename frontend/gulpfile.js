@@ -2,14 +2,29 @@
 var gulp  = require('gulp'),
     gutil = require('gulp-util'),
     gulp = require('gulp'),
-    babel = require('gulp-babel'),
     browserify = require('browserify')
     vinylSourceStream = require('vinyl-source-stream'),
     vinylBuffer = require('vinyl-buffer'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    install = require("gulp-install");
 
 gulp.task('default', function() {
     gutil.log('Gulp is running!');
+});
+
+
+// Setting up
+
+gulp.task('setup', function() {
+    gulp.src(['./bower.json', './package.json'])
+        .pipe(install());
+});
+
+
+// Building
+
+gulp.task('build', ['copy-dependencies', 'copy-html', 'transpile-jsx', 'build-scss'], function() {
+    gutil.log('build is running!');
 });
 
 gulp.task('copy-dependencies', function() {
@@ -39,8 +54,4 @@ gulp.task('build-scss', function() {
     gulp.src('src/scss/index.scss')
         .pipe(sass())
         .pipe(gulp.dest('target/css'));
-});
-
-gulp.task('build', ['copy-dependencies', 'copy-html', 'transpile-jsx', 'build-scss'], function() {
-    gutil.log('build is running!');
 });
