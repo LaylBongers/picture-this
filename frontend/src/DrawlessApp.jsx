@@ -1,11 +1,11 @@
 var React = require('react');
 
-class CountersApp extends React.Component {
+class DrawlessApp extends React.Component {
     render = () => {
         return (
-            <div>
+            <div className="dl-app">
                 <header>
-                    <h1><img src="logo.png"/></h1>
+                    <h1 className="tutsFadeAnim">Drawless</h1>
                     <h2>Yet another way to make your friends hate you!</h2>
                 </header>
                 <div className="row">
@@ -17,4 +17,4 @@ class CountersApp extends React.Component {
     }
 }
 
-module.exports = CountersApp;
+module.exports = DrawlessApp;
