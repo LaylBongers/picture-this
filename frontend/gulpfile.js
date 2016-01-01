@@ -12,6 +12,15 @@ gulp.task('default', function() {
     gutil.log('Gulp is running!');
 });
 
+gulp.task('copy-dependencies', function() {
+    gulp.src([
+            'bower_components/jquery/dist/jquery.js',
+            'bower_components/tether/dist/js/tether.js',
+            'bower_components/bootstrap/dist/js/bootstrap.js',
+        ])
+        .pipe(gulp.dest('target/js'));
+});
+
 gulp.task('copy-html', function() {
     gulp.src('src/*.html')
         .pipe(gulp.dest('target'));
@@ -27,11 +36,11 @@ gulp.task('transpile-jsx', function() {
 });
 
 gulp.task('build-scss', function() {
-    gulp.src('src/scss/**/*.scss')
+    gulp.src('src/scss/index.scss')
         .pipe(sass())
         .pipe(gulp.dest('target/css'));
 });
 
-gulp.task('build', ['copy-html', 'transpile-jsx', 'build-scss'], function() {
+gulp.task('build', ['copy-dependencies', 'copy-html', 'transpile-jsx', 'build-scss'], function() {
     gutil.log('build is running!');
 });

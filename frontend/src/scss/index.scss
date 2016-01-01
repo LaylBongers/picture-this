@@ -1,17 +1,13 @@
+$enable-flex: true;
+
 @import '../../bower_components/bootstrap/scss/bootstrap.scss';
 @import url(https://fonts.googleapis.com/css?family=Calligraffitti|Open+Sans);
 
-html {
-    font-size: 14px;
-}
+@import 'base.scss';
+@import 'divider.scss';
 
-body {
-    background-color: #333;
-    color: #E0E0E0;
-}
-
-body, h1, h2, h3, h4, h5 {
-    font-family: 'Open Sans', sans-serif;
+.jumbotron {
+    background-color: #E0E0E0;
 }
 
 .dl-app {
@@ -19,17 +15,18 @@ body, h1, h2, h3, h4, h5 {
 
     header {
         text-align: center;
-        padding-top: 20px;
+        padding-top: 18px;
+        padding-bottom: 18px;
 
         h1 {
-            margin: 0;
+            margin: 0 0 -8px 0;
             font-family: 'Calligraffitti', cursive;
             font-size: 72px;
             color: #FF931E;
         }
         h2 {
             margin: 0;
-            font-size: 1.714rem;
+            font-size: 24px;
         }
     }
 }
