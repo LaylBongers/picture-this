@@ -1,6 +1,11 @@
 var React = require('react');
 
 export class GameStartPanel extends React.Component {
+    onJoinSubmit = (e) => {
+        e.preventDefault();
+        this.props.onJoinGameRequest({key: '0000'});
+    }
+
     render = () => {
         return (
             <section className="content-panel">
@@ -31,12 +36,12 @@ export class GameStartPanel extends React.Component {
                     <div className="content-sidebar">
                         <section className="play-form">
                             <h3>Play Drawless</h3>
-                            <div className="form-inline">
+                            <form className="form-inline" onSubmit={this.onJoinSubmit}>
                                 <div className="join-game-inline">
                                     <input className="join-game-code" type="text" id="game-code" placeholder="Game Code" />
                                     <button className="join-game-button" type="submit">Join Game</button>
                                 </div>
-                            </div>
+                            </form>
                             <div className="divider">- or -</div>
                             <button className="create-game-button" type="submit">Create Game</button>
                         </section>

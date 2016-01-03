@@ -26,18 +26,29 @@ gulp.task('setup', function() {
 // Building
 
 gulp.task('build', ['copy-dependencies', 'copy-html', 'transpile-jsx', 'build-scss'], function() {
-    gutil.log('Build is running!');
+    return gutil.log('Build is running!');
 });
 
-gulp.task('copy-dependencies', function() {
+gulp.task('copy-dependencies', ['copy-dependencies-js', 'copy-dependencies-css'], function() {});
+
+gulp.task('copy-dependencies-js', function() {
     return gulp
         .src([
             'bower_components/jquery/dist/jquery.js',
             'bower_components/tether/dist/js/tether.js',
-            'bower_components/bootstrap/dist/js/bootstrap.js',
+            'bower_components/bootstrap/dist/js/bootstrap.js'
         ])
         .pipe(changed('target/js'))
         .pipe(gulp.dest('target/js'));
+});
+
+gulp.task('copy-dependencies-css', function() {
+    return gulp
+        .src([
+            'bower_components/animate.css/animate.min.css'
+        ])
+        .pipe(changed('target/css'))
+        .pipe(gulp.dest('target/css'));
 });
 
 gulp.task('copy-html', function() {
@@ -48,7 +59,9 @@ gulp.task('copy-html', function() {
 
 gulp.task('transpile-jsx', function() {
     return browserify('src/jsx/index.jsx')
-        .transform('babelify', {presets: ['es2015', 'react', 'stage-0']})
+        .transform('babelify', {
+            presets: ['es2015', 'react', 'stage-0']
+        })
         .bundle()
         .pipe(vinylSourceStream('index.js'))
         .pipe(vinylBuffer())

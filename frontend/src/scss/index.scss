@@ -11,6 +11,10 @@ $enable-flex: true;
 }
 
 .dl-app {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+
     header {
         text-align: center;
         padding-top: 18px;
@@ -38,6 +42,14 @@ $enable-flex: true;
         p {
             margin: 0px;
         }
+    }
+
+    .panels-container {
+        flex: 1;
+    }
+
+    .hidden {
+        display: none;
     }
 
     .content-panel {
