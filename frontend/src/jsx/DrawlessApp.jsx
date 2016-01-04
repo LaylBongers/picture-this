@@ -32,7 +32,7 @@ export class DrawlessApp extends React.Component {
         this.displayLoading('Connecting to server...');
 
         // Connect to the server and set up our network responses
-        this.socket = new WebSocket("ws://127.0.0.1:5468", "drawless-websockets");
+        this.socket = new WebSocket("ws://127.0.0.1:5468", "picturethis-websockets");
 
         this.socket.onopen = (event) => {
             // The first message should be ours, to tell the server what we want
@@ -73,7 +73,7 @@ export class DrawlessApp extends React.Component {
         return (
             <div className="dl-app">
                 <header>
-                    <h1>Drawless</h1>
+                    <h1>Picture This</h1>
                     <h2>Yet another way to make your friends hate you!</h2>
                 </header>
                 <main className="panels-container">

@@ -67,7 +67,7 @@ impl ConnectionManager {
         // Handshake the protocol
         // TODO: or ignore it if there is none set? I'm not quite sure honestly
         if let Some(&WebSocketProtocol(ref protocols)) = headers.get() {
-            let protocol = "drawless-websockets".to_string();
+            let protocol = "picturethis-websockets".to_string();
             if protocols.contains(&protocol) {
                 response.headers.set(WebSocketProtocol(vec!(protocol)));
             }

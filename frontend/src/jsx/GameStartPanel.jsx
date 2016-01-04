@@ -17,7 +17,7 @@ export class GameStartPanel extends React.Component {
                                 Oh hello there, esteemed hat-owner! Looking for a party game?
                                 Too poor for hangman? Don't have the stomach for twister?
                                 Too much family around for spin-the-bottle? Well look no
-                                further, for Drawless is the game you seek!
+                                further, for Picture This is the game you seek!
                             </p>
                             <p>
                                 Face off against your friends, enemies, or anything inbetween

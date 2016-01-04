@@ -1,5 +1,5 @@
-# Drawless Protocol
-Drawless uses websockets for its client-server communication.
+# Picture-This Protocol
+Picture-This uses websockets for its client-server communication.
 
 ## Server-to-Client Messages
 Valid event names with meaning:
