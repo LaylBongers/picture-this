@@ -25,6 +25,10 @@ $enable-flex: true;
             font-family: 'Calligraffitti', cursive;
             font-size: 72px;
             color: #FF931E;
+
+            @include media-breakpoint-down(xs) {
+                font-size: 56px;
+            }
         }
         h2 {
             margin: 0;
