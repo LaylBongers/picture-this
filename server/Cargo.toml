@@ -5,3 +5,7 @@ authors = ["Layl <layl@edgeworksgames.com>"]
 
 [dependencies]
 websocket = "0.15"
+rustc-serialize = "0.3"
+log4rs = "0.3"
+log = "0.3" # The version log4rs uses
+thread-scoped = "1"

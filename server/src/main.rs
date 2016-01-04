@@ -1,4 +1,8 @@
+#[macro_use] extern crate log;
+extern crate log4rs;
+extern crate rustc_serialize;
 extern crate websocket;
+extern crate thread_scoped;
 
 mod connection_manager;
 
@@ -16,8 +20,21 @@ fn main() {
     // The GameManager uses the helper object also used for receiving events per client to send
     //  events back to the clients, this may be done immediately or queued up. I don't know yet.
 
+    // Set up logging
+    log4rs::init_file("config/Log4rs.toml", Default::default()).unwrap();
+
     let manager = ConnectionManager::new();
-    manager.start(|_sender, _receiver| {
-        println!("Thing!");
+    manager.start(|handshake_msg, ip| {
+        // Handle the specific message we're sent and get a game key to join on
+        let _key = if handshake_msg.event == "CreateGame" {
+            info!("Game creation requested by {}", ip);
+        }
+        else if handshake_msg.event == "JoinGame" {
+            info!("Game joining requested by {}", ip);
+            unimplemented!();
+        }
+        else {
+            panic!("Unexpected event in handshake!");
+        };
     });
 }
