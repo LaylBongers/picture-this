@@ -95,5 +95,7 @@ impl ConnectionManager {
 
         // Run the binder so the the values can be used
         binder(msg, ip);
+
+        // TODO: Run the message loop
     }
 }

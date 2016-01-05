@@ -1,4 +1,4 @@
-import {DrawlessApp} from './DrawlessApp.jsx';
+import {PictureThisApp} from './PictureThisApp.jsx';
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -7,6 +7,6 @@ var ReactDOM = require('react-dom');
 //var ReactCSSTransitionGroup = addons.ReactCSSTransitionGroup;
 
 ReactDOM.render(
-    <DrawlessApp />,
+    <PictureThisApp />,
     document.getElementById('app')
 );

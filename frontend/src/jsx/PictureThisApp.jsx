@@ -3,7 +3,7 @@ import {LoadingPanel} from './LoadingPanel.jsx';
 
 var React = require('react');
 
-export class DrawlessApp extends React.Component {
+export class PictureThisApp extends React.Component {
     constructor(props) {
         super(props);
 

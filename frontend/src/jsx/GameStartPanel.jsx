@@ -25,7 +25,7 @@ export class GameStartPanel extends React.Component {
                             </p>
                             <p style={{fontStyle: 'italic', color: '#444', fontSize: '0.8em'}}>
                                 Hat-free play not rated by the ESRB. May cause swelling, irritation,
-                                or death. Ask your doctor if Drawless is right for you.
+                                or death. Ask your doctor if Picture This is right for you.
                             </p>
                         </article>
                         <article>
@@ -35,7 +35,7 @@ export class GameStartPanel extends React.Component {
                     </div>
                     <div className="content-sidebar">
                         <section className="play-form">
-                            <h3>Play Drawless</h3>
+                            <h3>Play Picture This</h3>
                             <form className="form-inline" onSubmit={this.onJoinSubmit}>
                                 <div className="join-game-inline">
                                     <input className="join-game-code" type="text" id="game-code" placeholder="Game Code" />
