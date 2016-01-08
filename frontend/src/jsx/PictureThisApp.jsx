@@ -80,8 +80,8 @@ export class PictureThisApp extends React.Component {
                     {panels[this.state.panelNum]}
                 </main>
                 <footer>
-                    <p>Copyright &copy; 2015 Layl</p>
-                    <p>Available under MIT License on GitHub.</p>
+                    <p>Copyright &copy; 2016 Carbide Games</p>
+                    <p><a href="https://github.com/LaylConway/picture-this">Source Code on GitHub</a></p>
                 </footer>
             </div>
         );

@@ -37,13 +37,13 @@ $enable-flex: true;
     }
 
     footer {
-        color: #666;
         font-size: 0.8rem;
         text-align: center;
         line-height: 1em;
         margin-bottom: 12px;
 
-        p {
+        p, a {
+            color: #666;
             margin: 0px;
         }
     }
