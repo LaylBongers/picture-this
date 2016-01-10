@@ -4,8 +4,9 @@ version = "0.1.0"
 authors = ["Layl <layl@edgeworksgames.com>"]
 
 [dependencies]
-websocket = "0.15"
-rustc-serialize = "0.3"
-log4rs = "0.3"
 log = "0.3" # The version log4rs uses
+log4rs = "0.3"
+rand = "0.3"
+rustc-serialize = "0.3"
 thread-scoped = "1"
+websocket = "0.15"

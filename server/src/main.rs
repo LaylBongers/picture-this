@@ -1,8 +1,9 @@
 #[macro_use] extern crate log;
 extern crate log4rs;
+extern crate rand;
 extern crate rustc_serialize;
-extern crate websocket;
 extern crate thread_scoped;
+extern crate websocket;
 
 mod connection_manager;
 mod game_manager;

@@ -1,5 +1,7 @@
 use std::thread;
+use std::sync::Mutex;
 use std::sync::mpsc::{self, Sender};
+use rand::{self, Rng, XorShiftRng};
 use connection_manager::ClientToken;
 
 #[derive(Debug)]
@@ -17,25 +19,39 @@ impl GameToken {
     }
 }
 
-pub struct GameManager;
+pub struct GameManager {
+    rng: Mutex<XorShiftRng>
+}
 
 impl GameManager {
     pub fn new() -> Self {
-        GameManager
+        GameManager {
+            rng: Mutex::new(rand::weak_rng())
+        }
     }
 
     pub fn create_game(&self) -> GameToken {
         // Set up a channel to send events to the game
         let (sender, receiver) = mpsc::channel();
 
-        // Spawn the game loop thread
-        thread::spawn(move || {
-            info!("Spawned new game thread");
+        // Generate a key for this game
+        // TODO: Gurentuee its uniqueness
+        let key = self.rng
+            .lock().unwrap()
+            .gen_ascii_chars().take(4).collect::<String>()
+            .to_uppercase();
 
-            for e in receiver.iter() {
-                info!("Received: {:?}", e);
-            }
-        });
+        // Spawn the game loop thread
+        thread::Builder::new()
+            .name(format!("Game{}", key))
+            .spawn(move || {
+                info!("Spawned new game thread");
+
+                for e in receiver.iter() {
+                    info!("Received: {:?}", e);
+                }
+            })
+            .unwrap();
 
         // Assemble the token to communicate with it
         GameToken {
