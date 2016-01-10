@@ -16,6 +16,32 @@ pub struct NetworkMessage {
     pub data: String
 }
 
+impl NetworkMessage {
+    pub fn from_message(message: Message) -> Self {
+        // Verify we have the right kind of message
+        if message.opcode != Type::Text {
+            // TODO: Use Result
+            panic!("Unexpected message opcode!");
+        }
+
+        // Actually receive the text data and parse it
+        let json = str::from_utf8(message.payload.borrow()).unwrap();
+
+        json::decode(&json).unwrap()
+    }
+}
+
+#[derive(Debug)]
+pub struct ClientToken {
+    address: SocketAddr
+}
+
+impl ClientToken {
+    pub fn address(&self) -> SocketAddr {
+        self.address
+    }
+}
+
 pub struct ConnectionManager;
 
 impl ConnectionManager {
@@ -27,7 +53,7 @@ impl ConnectionManager {
     /// other systems that need to use it. Do not block on `binder`, as the thread it runs on will
     /// be used to listen for network messages.
     pub fn start<F>(&self, binder: F) where
-        F: Fn(NetworkMessage, SocketAddr) + Sync
+        F: Fn(NetworkMessage, ClientToken) + Sync
     {
         // Start listening for connections
     	let server = Server::bind("127.0.0.1:5468").unwrap();
@@ -48,13 +74,13 @@ impl ConnectionManager {
             };
 
             // TODO: This is never cleaned up yet, `handle_connection` should clean itself up and
-            // this thread should wait for all threads before returning if in the process of stopping.
+            // this thread should wait for all threads before returning if in the process of stopping
             threads.push(thread);
     	}
     }
 
     pub fn handle_connection<F>(connection: Connection<WebSocketStream, WebSocketStream>, binder: &F) where
-        F: Fn(NetworkMessage, SocketAddr)
+        F: Fn(NetworkMessage, ClientToken)
     {
         // Get some data on the client that is requesting to talk to us
         let request = connection.read_request().unwrap();
@@ -76,25 +102,16 @@ impl ConnectionManager {
         // Complete the websockets handshake
         let mut client = response.send().unwrap();
 
-        // Log the connection
-        let ip = client.get_mut_sender().get_mut().peer_addr().unwrap();
-        info!("Incoming connection from {}", ip);
-
-        // Split our client into sender and receiver so we can work with it
+        // Get the values we need to start doing some work
+        let address = client.get_mut_sender().get_mut().peer_addr().unwrap();
+        info!("Incoming connection from {}", address);
         let (mut _sender, mut receiver) = client.split();
 
         // Receive the first message from the client so we know what it wants
-        let message: Message = receiver.recv_message().unwrap();
-        if message.opcode != Type::Text {
-            panic!("Unexpected message opcode in handshake!");
-        }
-
-        // Actually receive the text data and parse it
-        let json = str::from_utf8(message.payload.borrow()).unwrap();
-        let msg: NetworkMessage = json::decode(&json).unwrap();
+        let msg = NetworkMessage::from_message(receiver.recv_message().unwrap());
 
         // Run the binder so the the values can be used
-        binder(msg, ip);
+        binder(msg, ClientToken { address: address });
 
         // TODO: Run the message loop
     }

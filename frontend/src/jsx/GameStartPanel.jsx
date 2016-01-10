@@ -6,6 +6,11 @@ export class GameStartPanel extends React.Component {
         this.props.onJoinGameRequest({key: '0000'});
     }
 
+    onCreateGameRequest = (e) => {
+        e.preventDefault();
+        this.props.onCreateGameRequest({});
+    }
+
     render = () => {
         return (
             <section className="content-panel">
@@ -43,7 +48,12 @@ export class GameStartPanel extends React.Component {
                                 </div>
                             </form>
                             <div className="divider">- or -</div>
-                            <button className="create-game-button" type="submit">Create Game</button>
+                            <button
+                                className="create-game-button"
+                                type="submit"
+                                onClick={this.onCreateGameRequest}>
+                                Create Game
+                            </button>
                         </section>
                         <article>
                             <h3>Donate</h3>

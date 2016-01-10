@@ -2,7 +2,7 @@
 var gulp  = require('gulp'),
     gutil = require('gulp-util'),
     gulp = require('gulp'),
-    browserify = require('browserify')
+    browserify = require('browserify'),
     vinylSourceStream = require('vinyl-source-stream'),
     vinylBuffer = require('vinyl-buffer'),
     sass = require('gulp-sass'),

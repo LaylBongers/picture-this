@@ -18,16 +18,7 @@ export class PictureThisApp extends React.Component {
         this.state.loadingText = text;
     }
 
-    sendNetworkMessage = (event, data) => {
-        var message = {
-            event: event,
-            data: JSON.stringify(data)
-        };
-        var json = JSON.stringify(message);
-        this.socket.send(json);
-    }
-
-    onJoinGameRequest = (event) => {
+    connect = (handshake_evt, handshake_data) => {
         // Switch to the loading panel
         this.displayLoading('Connecting to server...');
 
@@ -36,8 +27,7 @@ export class PictureThisApp extends React.Component {
 
         this.socket.onopen = (event) => {
             // The first message should be ours, to tell the server what we want
-            // TODO: Actually make this a join game instead of a create game
-            this.sendNetworkMessage("CreateGame", {});
+            this.sendNetworkMessage(handshake_evt, handshake_data);
         }
 
 		this.socket.onmessage = (event) => {
@@ -60,13 +50,33 @@ export class PictureThisApp extends React.Component {
         this.setState(this.state);
     }
 
+    sendNetworkMessage = (event, data) => {
+        var message = {
+            event: event,
+            data: JSON.stringify(data)
+        };
+        var json = JSON.stringify(message);
+        this.socket.send(json);
+    }
+
+    onJoinGameRequest = (event) => {
+        this.connect("JoinGame", {key: event.key});
+    }
+
+    onCreateGameRequest = (event) => {
+        this.connect("CreateGame", {});
+    }
+
     onJoinGame = (event) => {
         alert('Handshake!');
     }
 
     render = () => {
         var panels = [
-            <GameStartPanel key="0" onJoinGameRequest={this.onJoinGameRequest} />,
+            <GameStartPanel
+                key="0"
+                onJoinGameRequest={this.onJoinGameRequest}
+                onCreateGameRequest={this.onCreateGameRequest} />,
             <LoadingPanel key="1" text={this.state.loadingText} />
         ];
 

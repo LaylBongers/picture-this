@@ -5,8 +5,10 @@ extern crate websocket;
 extern crate thread_scoped;
 
 mod connection_manager;
+mod game_manager;
 
 use connection_manager::ConnectionManager;
+use game_manager::GameManager;
 
 fn main() {
     //  Data flow:
@@ -23,18 +25,30 @@ fn main() {
     // Set up logging
     log4rs::init_file("config/Log4rs.toml", Default::default()).unwrap();
 
-    let manager = ConnectionManager::new();
-    manager.start(|handshake_msg, ip| {
-        // Handle the specific message we're sent and get a game key to join on
-        let _key = if handshake_msg.event == "CreateGame" {
-            info!("Game creation requested by {}", ip);
+    // Initialize managers
+    let connections = ConnectionManager::new();
+    let games = GameManager::new();
+
+    // Start the connection manager (blocking)
+    connections.start(|handshake_msg, client| {
+        // Handle the specific message we're sent and get a game token
+        let game = if handshake_msg.event == "CreateGame" {
+            info!("Game creation requested by {}", client.address());
+
+            // Create the game
+            games.create_game()
         }
         else if handshake_msg.event == "JoinGame" {
-            info!("Game joining requested by {}", ip);
+            info!("Game joining requested by {}", client.address());
+
+            // Look up the game
             unimplemented!();
         }
         else {
             panic!("Unexpected event in handshake!");
         };
+
+        // Actually join the game
+        game.join_game(client);
     });
 }
