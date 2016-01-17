@@ -11,5 +11,5 @@ export class LoadingPanel extends React.Component {
                 <p>{this.props.text}</p>
             </section>
         );
-    }
+    };
 }

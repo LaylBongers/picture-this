@@ -4,12 +4,12 @@ export class GameStartPanel extends React.Component {
     onJoinSubmit = (e) => {
         e.preventDefault();
         this.props.onJoinGameRequest({key: '0000'});
-    }
+    };
 
     onCreateGameRequest = (e) => {
         e.preventDefault();
         this.props.onCreateGameRequest({});
-    }
+    };
 
     render = () => {
         return (
@@ -67,5 +67,5 @@ export class GameStartPanel extends React.Component {
                 </div>
             </section>
         );
-    }
+    };
 }

@@ -6,20 +6,10 @@ var gulp  = require('gulp'),
     vinylSourceStream = require('vinyl-source-stream'),
     vinylBuffer = require('vinyl-buffer'),
     sass = require('gulp-sass'),
-    install = require("gulp-install"),
     changed = require('gulp-changed');
 
 gulp.task('default', function() {
     gutil.log('Gulp is running!');
-});
-
-
-// Setting up
-
-gulp.task('setup', function() {
-    return gulp
-        .src(['./bower.json', './package.json'])
-        .pipe(install());
 });
 
 

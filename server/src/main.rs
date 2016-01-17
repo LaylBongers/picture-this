@@ -14,7 +14,8 @@ use game_manager::GameManager;
 fn main() {
     //  Data flow:
     // Client sends data, arrives in thread in ConnectionManager.
-    // ConnectionManager parses data and turns it into client events, sending them through a channel.
+    // ConnectionManager parses data and turns it into client events, sending them through a
+    //  channel.
     // The GameManager owns the receiving channels, kept grouped together with game-specific data.
     // When a tick is run, the GameManager first gathers all received events, then pushes them to
     //  the update function on the game.

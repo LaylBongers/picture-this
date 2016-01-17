@@ -1,7 +1,8 @@
 ## Development Setup
 ```
 npm install -g gulp bower
-gulp setup
+npm install
+bower install
 ```
 
 ## Build

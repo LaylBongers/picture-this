@@ -16,7 +16,7 @@ export class PictureThisApp extends React.Component {
     displayLoading = (text) => {
         this.state.panelNum = 1;
         this.state.loadingText = text;
-    }
+    };
 
     connect = (handshake_evt, handshake_data) => {
         // Switch to the loading panel
@@ -48,7 +48,7 @@ export class PictureThisApp extends React.Component {
 
         // Finally apply the state changes
         this.setState(this.state);
-    }
+    };
 
     sendNetworkMessage = (event, data) => {
         var message = {
@@ -57,19 +57,19 @@ export class PictureThisApp extends React.Component {
         };
         var json = JSON.stringify(message);
         this.socket.send(json);
-    }
+    };
 
     onJoinGameRequest = (event) => {
         this.connect("JoinGame", {key: event.key});
-    }
+    };
 
     onCreateGameRequest = (event) => {
         this.connect("CreateGame", {});
-    }
+    };
 
     onJoinGame = (event) => {
         alert('Handshake!');
-    }
+    };
 
     render = () => {
         var panels = [
@@ -95,5 +95,5 @@ export class PictureThisApp extends React.Component {
                 </footer>
             </div>
         );
-    }
+    };
 }
