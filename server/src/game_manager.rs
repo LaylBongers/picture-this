@@ -2,11 +2,13 @@ use std::thread;
 use std::sync::Mutex;
 use std::sync::mpsc::{self, Sender};
 use rand::{self, Rng, XorShiftRng};
-use connection_manager::ClientToken;
+use connection_manager::{ClientToken, ClientSendEvent};
 
 #[derive(Debug)]
 enum GameTokenEvent {
-    JoinGame(ClientToken)
+    JoinGame(ClientToken),
+    #[doc(hidden)]
+    __DontMatchMe,
 }
 
 pub struct GameToken {
@@ -35,7 +37,7 @@ impl GameManager {
         let (sender, receiver) = mpsc::channel();
 
         // Generate a key for this game
-        // TODO: Gurentuee its uniqueness
+        // TODO: Gurentuee its uniqueness so we can use it for lookup
         let key = self.rng
             .lock().unwrap()
             .gen_ascii_chars().take(4).collect::<String>()
@@ -47,8 +49,15 @@ impl GameManager {
             .spawn(move || {
                 info!("Spawned new game thread");
 
-                for e in receiver.iter() {
-                    info!("Received: {:?}", e);
+                // Handle all incoming events from game tokens
+                for evt in receiver.iter() {
+                    match evt {
+                        GameTokenEvent::JoinGame(mut client) => {
+                            info!("Handling join game request for {}", client.address());
+                            client.send(ClientSendEvent::JoinGame);
+                        },
+                        e => warn!("Received unhandled: {:?}", e)
+                    }
                 }
             })
             .unwrap();

@@ -1,4 +1,5 @@
 import {GameStartPanel} from './GameStartPanel.jsx';
+import {NameAvatarInputPanel} from './NameAvatarInputPanel.jsx';
 import {LoadingPanel} from './LoadingPanel.jsx';
 
 var React = require('react');
@@ -68,18 +69,33 @@ export class PictureThisApp extends React.Component {
     };
 
     onJoinGame = (event) => {
-        alert('Handshake!');
+        alert("handshake!");
+
+        // Switch to the name & avatar input panel
+        this.state.panelNum = 2;
+        this.setState(this.state);
     };
 
     render = () => {
-        var panels = [
-            <GameStartPanel
+        // Create the correct panel to be inserted into the page
+        var panel;
+        if (this.state.panelNum == 0) {
+            panel = <GameStartPanel
                 key="0"
                 onJoinGameRequest={this.onJoinGameRequest}
-                onCreateGameRequest={this.onCreateGameRequest} />,
-            <LoadingPanel key="1" text={this.state.loadingText} />
-        ];
+                onCreateGameRequest={this.onCreateGameRequest} />;
+        }
+        else if (this.state.panelNum == 1) {
+            panel = <LoadingPanel key="1" text={this.state.loadingText} />;
+        }
+        else if (this.state.panelNum == 2) {
+            panel = <NameAvatarInputPanel key="2" />;
+        }
+        else {
+            throw "panelNum does not correspond to a panel";
+        }
 
+        // Build up the full page
         return (
             <div className="dl-app">
                 <header>
@@ -87,7 +103,7 @@ export class PictureThisApp extends React.Component {
                     <h2>Yet another way to make your friends hate you!</h2>
                 </header>
                 <main className="panels-container">
-                    {panels[this.state.panelNum]}
+                    {panel}
                 </main>
                 <footer>
                     <p>Copyright &copy; 2016 Carbide Games</p>

@@ -1,12 +1,14 @@
 use std::borrow::Borrow;
 use std::str;
 use std::net::SocketAddr;
+use rustc_serialize::Encodable;
 use rustc_serialize::json;
 use websocket::{Server, Message, Receiver};
 use websocket::message::Type;
 use websocket::header::WebSocketProtocol;
 use websocket::server::Connection;
 use websocket::stream::WebSocketStream;
+use websocket::sender::Sender;
 use thread_scoped;
 use thread_scoped::{JoinGuard};
 
@@ -29,16 +31,60 @@ impl NetworkMessage {
 
         json::decode(&json).unwrap()
     }
+
+    pub fn to_message(&self) -> Message {
+        let text = json::encode(self).unwrap();
+        Message::text(text)
+    }
+
+    pub fn from_data<E>(event: String, data: &E) -> Self where
+        E: Encodable
+    {
+        NetworkMessage {
+            event: event,
+            data: json::encode(&data).unwrap()
+        }
+    }
 }
 
-#[derive(Debug)]
 pub struct ClientToken {
-    address: SocketAddr
+    address: SocketAddr,
+    sender: Sender<WebSocketStream>
 }
 
 impl ClientToken {
     pub fn address(&self) -> SocketAddr {
         self.address
+    }
+
+    pub fn send(&mut self, evt: ClientSendEvent) {
+        use websocket::ws::sender::Sender;
+
+        // Turn the event into a network message
+        let msg = evt.to_network_msg();
+        self.sender.send_message(&msg.to_message()).unwrap();
+    }
+}
+
+impl ::std::fmt::Debug for ClientToken {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        write!(f, "{{ address: {} }}", self.address)
+    }
+}
+
+pub enum ClientSendEvent {
+    JoinGame
+}
+
+impl ClientSendEvent {
+    fn to_event(&self) -> String {
+        match self {
+            &ClientSendEvent::JoinGame => "JoinGame".into()
+        }
+    }
+
+    fn to_network_msg(&self) -> NetworkMessage {
+        NetworkMessage::from_data(self.to_event(), &())
     }
 }
 
@@ -105,13 +151,16 @@ impl ConnectionManager {
         // Get the values we need to start doing some work
         let address = client.get_mut_sender().get_mut().peer_addr().unwrap();
         info!("Incoming connection from {}", address);
-        let (mut _sender, mut receiver) = client.split();
+        let (sender, mut receiver) = client.split();
 
         // Receive the first message from the client so we know what it wants
         let msg = NetworkMessage::from_message(receiver.recv_message().unwrap());
 
         // Run the binder so the the values can be used
-        binder(msg, ClientToken { address: address });
+        binder(msg, ClientToken {
+            address: address,
+            sender: sender
+        });
 
         // TODO: Run the message loop
     }

@@ -5,7 +5,7 @@
   "authors": [
     "Layl <layl@edgeworksgames.com>"
   ],
-  "license": "MIT",
+  "license": "MIT/Apache-2.0",
   "moduleType": [],
   "homepage": "",
   "private": true,
